@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="tensquare_base" />
         <module name="tenquare_common" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="tenquare_common" options="-parameters" />
       <module name="tensquare" options="-parameters" />
+      <module name="tensquare_base" options="-parameters" />
     </option>
   </component>
 </project>
