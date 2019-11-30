@@ -1,10 +1,12 @@
 package com.hzm.controller;
 
 import com.hzm.entity.Label;
+import com.hzm.entity.PageResult;
 import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
 import com.hzm.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,5 +51,11 @@ public class LabelController {
     public Result findSearch(@RequestBody Label label){
         List<Label> list = labelService.findSearch(label);
         return new Result(true,StatusCode.OK,"查询成功",list);
+    }
+
+    @PostMapping(value = "/search/{page}/{size}")
+    public Result findQuery(@RequestBody Label label,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
+        Page<Label> labelPage = labelService.findQuery(label,page,size);
+        return new Result(true,StatusCode.OK,"查询成功",new PageResult<Label>(labelPage.getTotalElements(),labelPage.getContent()));
     }
 }
