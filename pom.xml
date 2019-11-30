@@ -11,6 +11,7 @@
     <modules>
         <module>tenquare_common</module>
         <module>tensquare_base</module>
+        <module>tensquare_recuit</module>
     </modules>
 
     <name>tensquare_parent</name>
