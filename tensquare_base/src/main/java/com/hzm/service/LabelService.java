@@ -47,7 +47,7 @@ public class LabelService {
         labelDao.deleteById(id);
     }
 
-    public List<Label> findSearch(Label label){
+    public List<Label> findSearch(final Label label){
         //条件查询
         return labelDao.findAll(new Specification<Label>() {
             /**
