@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tb_recuit")
-public class Recuit {
+public class RecuitEntity {
     @Id
     private String id;
     private String jobname;//职位名称

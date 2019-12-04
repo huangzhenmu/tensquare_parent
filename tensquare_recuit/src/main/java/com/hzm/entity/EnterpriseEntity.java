@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_enterprise")
 @Data
-public class Enterprise {
+public class EnterpriseEntity {
     @Id
     private String id;//主键id
     private String name;//企业名称

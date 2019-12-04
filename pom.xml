@@ -9,9 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>tenquare_common</module>
+        <module>tensquare_common</module>
         <module>tensquare_base</module>
         <module>tensquare_recuit</module>
+        <module>tensquare_qa</module>
+        <module>tensquare_article</module>
+        <module>tensquare_gathering</module>
     </modules>
 
     <name>tensquare_parent</name>
