@@ -23,6 +23,14 @@ public class RecuitService {
     private RecuitDao recuitDao;
     @Autowired
     IdWorker idWorker;
+
+    public List<RecuitEntity> recommend(){
+        return recuitDao.findTop6ByStateOrderByCreatetime("2");
+    }
+
+    public List<RecuitEntity> newList(){
+        return recuitDao.findTop6ByStateNotOrderByCreatetime("");
+    }
     public List<RecuitEntity> findAll(){
         return recuitDao.findAll();
     }
@@ -44,22 +52,22 @@ public class RecuitService {
         recuitDao.deleteById(id);
     }
 
-    /*public List<RecuitEntity> findSearch(final RecuitEntity recuit){
+    public List<RecuitEntity> findSearch(final RecuitEntity recuit){
         //条件查询
         return recuitDao.findAll(new Specification<RecuitEntity>() {
-            *//**
+            /**
              * @param root 根对象，也就是要把条件封装到哪个对象中，然后查询时就用，比如where id = recuit.id
              * @param criteriaQuery 封装的都是查询关键字（一般不会用到），比如group by ，order by
              * @param criteriaBuilder 用来封装条件对象 如果方法返回null表示不用任何条件
              * @return
-             *//*
+             */
             @Override
             public Predicate toPredicate(Root<RecuitEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 //新建list存放所有条件
                 List<Predicate> predicateList = new ArrayList<>();
-                if(recuit.getRecuitEntityname() != null &&!"".equals(recuit.getRecuitEntityname())){
+                if(recuit.getJobname() != null &&!"".equals(recuit.getJobname())){
                     //where recuitname like "%小明%"
-                    Predicate predicate = criteriaBuilder.like(root.get("recuitname").as(String.class),"%"+recuit.getRecuitEntityname()+"%");
+                    Predicate predicate = criteriaBuilder.like(root.get("jobname").as(String.class),"%"+recuit.getJobname()+"%");
                     predicateList.add(predicate);//保存条件
                 }
                 if(recuit.getState() != null &&!"".equals(recuit.getState())){
@@ -74,25 +82,25 @@ public class RecuitService {
                 return criteriaBuilder.and(predicates);//将所有的条件用and连接
             }
         });
-    }*/
+    }
 
-    /*public Page<RecuitEntity> findQuery(RecuitEntity recuit, int page, int size){
+    public Page<RecuitEntity> findQuery(RecuitEntity recuit, int page, int size){
         //封装分页对象
         Pageable pageable = PageRequest.of(page-1,size);//pageable的页码是从0开始的
         return recuitDao.findAll(new Specification<RecuitEntity>() {
-            *//**
+            /**
              * @param root 根对象，也就是要把条件封装到哪个对象中，然后查询时就用，比如where id = recuit.id
              * @param criteriaQuery 封装的都是查询关键字（一般不会用到），比如group by ，order by
              * @param criteriaBuilder 用来封装条件对象 如果方法返回null表示不用任何条件
              * @return
-             *//*
+             */
             @Override
             public Predicate toPredicate(Root<RecuitEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 //新建list存放所有条件
                 List<Predicate> predicateList = new ArrayList<>();
-                if(recuit.getRecuitEntityname() != null &&!"".equals(recuit.getRecuitEntityname())){
+                if(recuit.getJobname() != null &&!"".equals(recuit.getJobname())){
                     //where recuitname like "%小明%"
-                    Predicate predicate = criteriaBuilder.like(root.get("recuitname").as(String.class),"%"+recuit.getRecuitEntityname()+"%");
+                    Predicate predicate = criteriaBuilder.like(root.get("jobname").as(String.class),"%"+recuit.getJobname()+"%");
                     predicateList.add(predicate);//保存条件
                 }
                 if(recuit.getState() != null &&!"".equals(recuit.getState())){
@@ -107,5 +115,5 @@ public class RecuitService {
                 return criteriaBuilder.and(predicates);//将所有的条件用and连接
             }
         },pageable);
-    }*/
+    }
 }

@@ -1,12 +1,16 @@
 package com.hzm.controller;
 
 import com.hzm.entity.EnterpriseEntity;
+import com.hzm.entity.PageResult;
 import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
 import com.hzm.service.EnterpriseService;
 import com.hzm.service.RecuitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/enterprise")
@@ -34,16 +38,21 @@ public class EnterpriseController {
     public Result update(@PathVariable("enterpriseId") String enterpriseId,@RequestBody EnterpriseEntity enterprise){
         enterprise.setId(enterpriseId);
         enterpriseService.update(enterprise);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"修改成功");
     }
 
     @DeleteMapping("/delete/{enterpriseId}")
     public Result deleteById(@PathVariable("enterpriseId") String enterpriseId){
         enterpriseService.deleteById(enterpriseId);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"删除成功");
     }
 
-    /*@PostMapping(value = "/search")
+    @PostMapping("/search/hostlist")
+    public Result hotlist(){
+        List<EnterpriseEntity> list = enterpriseService.hotList("1");
+        return new Result(true,StatusCode.OK,"查询成功",list);
+    }
+    @PostMapping(value = "/search")
     public Result findSearch(@RequestBody EnterpriseEntity enterprise){
         List<EnterpriseEntity> list = enterpriseService.findSearch(enterprise);
         return new Result(true,StatusCode.OK,"查询成功",list);
@@ -53,5 +62,5 @@ public class EnterpriseController {
     public Result findQuery(@RequestBody EnterpriseEntity enterprise,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
         Page<EnterpriseEntity> enterprisePage = enterpriseService.findQuery(enterprise,page,size);
         return new Result(true,StatusCode.OK,"查询成功",new PageResult<EnterpriseEntity>(enterprisePage.getTotalElements(),enterprisePage.getContent()));
-    }*/
+    }
 }

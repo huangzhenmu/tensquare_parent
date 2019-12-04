@@ -38,13 +38,13 @@ public class LabelController {
     public Result update(@PathVariable("labelId") String labelId,@RequestBody Label label){
         label.setId(labelId);
         labelService.update(label);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"更新成功");
     }
 
     @DeleteMapping("/delete/{labelId}")
     public Result deleteById(@PathVariable("labelId") String labelId){
         labelService.deleteById(labelId);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"删除成功");
     }
 
     @PostMapping(value = "/search")
