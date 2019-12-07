@@ -4,7 +4,6 @@ import com.hzm.entity.EnterpriseEntity;
 import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
 import com.hzm.service.EnterpriseService;
-import com.hzm.service.RecuitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
