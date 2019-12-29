@@ -15,3 +15,7 @@ spring:
     host: 127.0.0.1
    rabbitmq:
       host: 127.0.0.1
+jwt:
+  config:
+    key: hzm
+    ttl: 360000 #过期时间为1h

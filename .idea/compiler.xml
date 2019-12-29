@@ -13,7 +13,6 @@
         <module name="tensquare_qa" />
         <module name="tensquare_recuit" />
         <module name="tensquare_user" />
-        <module name="search" />
         <module name="tensquare_spit" />
         <module name="tensquare_search" />
         <module name="tensquare_common" />
@@ -22,7 +21,6 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="search" options="-parameters" />
       <module name="tensquare" options="" />
       <module name="tensquare_article" options="-parameters" />
       <module name="tensquare_base" options="-parameters" />

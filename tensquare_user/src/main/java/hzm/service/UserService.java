@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,8 @@ public class UserService {
     private RedisTemplate redisTemplate;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public List<User> findAll(){
         return userDao.findAll();
@@ -39,6 +42,8 @@ public class UserService {
 
     public void save(User user){
         user.setId(idWorker.nextId()+"");
+        String encryptPassword = encoder.encode(user.getPassword());
+        user.setPassword(encryptPassword);
         userDao.save(user);
     }
 
@@ -96,5 +101,14 @@ public class UserService {
         user.setUpdatedate(new Date());//更新日期
         user.setLastdate(new Date());//最后登陆日期
         userDao.save(user);
+    }
+
+    public User findByMobileAndPassword(String mobile,String password){
+        User user = userDao.findByMobile(mobile);
+        if (encoder.matches(password,user.getPassword())){
+            return user;
+        }else {
+            return null;
+        }
     }
 }

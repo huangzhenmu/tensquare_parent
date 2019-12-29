@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @GetMapping("getAll")
     public Result findAll(){
@@ -65,6 +63,16 @@ public class UserController {
     public Result register(@RequestBody User user,@PathVariable String code){
         userService.add(user,code);
         return new Result(true,StatusCode.OK,"注册成功");
+    }
+
+    @RequestMapping(value="/login",method=RequestMethod.POST)
+    public Result login(String mobile,String password){
+        User user = userService.findByMobileAndPassword(mobile, password);
+        if (user != null){
+            return new Result(true,StatusCode.OK,"登录成功");
+        }else {
+            return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
+        }
     }
 
 }
