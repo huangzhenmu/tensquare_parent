@@ -2,11 +2,13 @@ package hzm.controller;
 
 import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
+import com.hzm.util.JwtUtil;
 import hzm.entity.Admin;
 import hzm.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -16,6 +18,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping("getAll")
     public Result findAll(){
@@ -52,7 +56,11 @@ public class AdminController {
         String password = loginMap.get("password");
         Admin admin = adminService.loginByLoginnameAndPassword(loginname,password);
         if (admin != null){
-            return new Result(true,StatusCode.OK,"登录成功");
+            String token = jwtUtil.createJwt(admin.getId(),admin.getLoginname(),"admin");
+            Map map = new HashMap();
+            map.put("token",token);
+            map.put("name",admin.getLoginname());//登陆名
+            return new Result(true,StatusCode.OK,"登陆成功",map);
         }else {
             return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
         }

@@ -1,12 +1,18 @@
 package hzm.controller;
 
 import com.hzm.entity.Result;
+import com.hzm.util.JwtUtil;
 import hzm.entity.User;
 import com.hzm.entity.StatusCode;
 import hzm.service.UserService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -14,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping("getAll")
     public Result findAll(){
@@ -40,6 +50,29 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     public Result deleteById(@PathVariable("userId") String userId){
+        /*
+        //未加过滤器的验证方法
+        //约定请求头中的验证信息为Bearer token
+        String authorization = request.getHeader("Authorization");
+        //验证是否有删除用户权限
+        if (authorization == null){
+            return new Result(false,StatusCode.ACCESSERROR,"无该操作权限");
+        }else if (!authorization.startsWith("Bearer ")){
+            return new Result(false,StatusCode.ACCESSERROR,"无该操作权限");
+        }
+        String token = authorization.substring(7);
+        Claims claims = jwtUtil.parseJwt(token);
+        if (claims == null){
+            return new Result(false,StatusCode.ACCESSERROR,"无该操作权限");
+        }
+        if (!"admin".equals(claims.get("roles"))){
+            return new Result(false,StatusCode.ACCESSERROR,"无该操作权限");
+        }*/
+        //加过滤器的验证方法
+        Claims claims = (Claims)request.getAttribute("admin_clain");
+        if (claims == null){
+            return new Result(false,StatusCode.ACCESSERROR,"无该操作权限");
+        }
         userService.deleteById(userId);
         return new Result(true, StatusCode.OK,"删除成功");
     }
@@ -69,7 +102,12 @@ public class UserController {
     public Result login(String mobile,String password){
         User user = userService.findByMobileAndPassword(mobile, password);
         if (user != null){
-            return new Result(true,StatusCode.OK,"登录成功");
+            String token = jwtUtil.createJwt(user.getId(),user.getNickname(),"user");
+            Map map=new HashMap();
+            map.put("token",token);
+            map.put("name",user.getNickname());//昵称
+            map.put("avatar",user.getAvatar());//头像
+            return new Result(true,StatusCode.OK,"登录成功",map);
         }else {
             return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
         }

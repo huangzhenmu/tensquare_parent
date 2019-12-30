@@ -5,9 +5,12 @@ import com.hzm.entity.ProblemEntity;
 import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
 import com.hzm.service.ProblemService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin//跨域
@@ -16,6 +19,9 @@ public class ProblemController {
 
     @Autowired
     private ProblemService problemService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @GetMapping("/newlist/{labelid}/{page}/{size}")
     public Result newList(@PathVariable("labelid") String labelid,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
@@ -47,6 +53,10 @@ public class ProblemController {
 
     @PostMapping("/save")
     public Result save(@RequestBody ProblemEntity problemEntity){
+        Claims claims = (Claims)request.getAttribute("user_claim");
+        if (claims == null){
+            return new Result(false,StatusCode.ACCESSERROR,"无权限操作");
+        }
         problemService.save(problemEntity);
         return new Result(true,StatusCode.OK,"添加成功");
     }

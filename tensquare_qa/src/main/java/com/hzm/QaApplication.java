@@ -1,6 +1,7 @@
 package com.hzm;
 
 import com.hzm.util.IdWorker;
+import com.hzm.util.JwtUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,5 +15,10 @@ public class QaApplication {
     @Bean
     public IdWorker idWorker(){
         return new IdWorker(1,1);
+    }
+
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
     }
 }
