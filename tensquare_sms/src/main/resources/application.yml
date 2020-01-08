@@ -11,3 +11,9 @@ aliyun:
       accessKeySecret: 不告诉你
       template_code: SMS_85735065
       sign_name: hzzzzm
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka
+  instance:
+    prefer‐ip‐address: true

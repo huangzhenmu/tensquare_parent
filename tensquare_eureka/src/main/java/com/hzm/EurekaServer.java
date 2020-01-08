@@ -1,16 +1,13 @@
 package com.hzm;
 
-import com.hzm.util.IdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
-public class SearchApplication {
+@EnableEurekaServer
+public class EurekaServer {
     public static void main(String[] args) {
-        SpringApplication.run(SearchApplication.class,args);
-    }
-
-    public IdWorker idWorker(){
-        return new IdWorker();
+        SpringApplication.run(EurekaServer.class,args);
     }
 }

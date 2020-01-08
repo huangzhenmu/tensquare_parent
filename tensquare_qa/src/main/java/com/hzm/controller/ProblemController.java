@@ -6,12 +6,15 @@ import com.hzm.entity.Result;
 import com.hzm.entity.StatusCode;
 import com.hzm.service.ProblemService;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Api(value = "ProblemController",produces = "问题接口")
 @RestController
 @CrossOrigin//跨域
 @RequestMapping("/problem")
@@ -23,12 +26,14 @@ public class ProblemController {
     @Autowired
     private HttpServletRequest request;
 
+    @ApiOperation("分页查询新问题列表")
     @GetMapping("/newlist/{labelid}/{page}/{size}")
     public Result newList(@PathVariable("labelid") String labelid,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
         Page<ProblemEntity> pageData = problemService.newList(labelid,page,size);
         return new Result(true,StatusCode.OK,"查询成功",new PageResult<ProblemEntity>(pageData.getTotalElements(),pageData.getContent()));
     }
 
+    @ApiOperation("分页查询热门问题列表")
     @GetMapping("/hotlist/{labelid}/{page}/{size}")
     public Result hotList(@PathVariable("labelid") String labelid,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
         Page<ProblemEntity> pageData = problemService.hotList(labelid,page,size);
@@ -41,6 +46,7 @@ public class ProblemController {
         return new Result(true,StatusCode.OK,"查询成功",new PageResult<ProblemEntity>(pageData.getTotalElements(),pageData.getContent()));
     }
 
+    @ApiOperation("查询所有")
     @GetMapping("/findAll")
     public Result findAll(){
         return new Result(true, StatusCode.OK,"查询成功",problemService.findAll());

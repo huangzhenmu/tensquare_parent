@@ -19,3 +19,9 @@ jwt:
   config:
     key: hzm
     ttl: 360000 #过期时间为1h
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka
+  instance:
+    prefer‐ip‐address: true

@@ -6,6 +6,7 @@ import hzm.entity.User;
 import com.hzm.entity.StatusCode;
 import hzm.service.UserService;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -92,12 +93,14 @@ public class UserController {
       * 用户注册    
       * @param user    
       */
+    @ApiOperation("注册")
     @RequestMapping(value="/register/{code}",method=RequestMethod.POST)
     public Result register(@RequestBody User user,@PathVariable String code){
         userService.add(user,code);
         return new Result(true,StatusCode.OK,"注册成功");
     }
 
+    @ApiOperation("登录")
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public Result login(String mobile,String password){
         User user = userService.findByMobileAndPassword(mobile, password);

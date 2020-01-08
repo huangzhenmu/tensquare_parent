@@ -14,3 +14,9 @@ spring:
 jwt:
   config:
     key: hzm
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka
+  instance:
+    prefer‐ip‐address: true
