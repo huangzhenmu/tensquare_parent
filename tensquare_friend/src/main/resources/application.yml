@@ -1,24 +1,19 @@
 server:
-  port : 9008
+  port : 9011
 spring:
   application:
-    name: tensquare-user #必须横杠来连接
+    name: tensquare-friend #必须横杠来连接
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tensquare_user?characterEncoding=UTF8
+    url: jdbc:mysql://localhost:3306/tensquare_friend?characterEncoding=utf-8
     username: root
     password: 123456
   jpa:
     database: mysql
     show-sql: true
-  redis:
-    host: 127.0.0.1
-   rabbitmq:
-      host: 127.0.0.1
 jwt:
   config:
-    key: huangzhenmu #设置要长一点，不然会保错……（晕）
-    ttl: 360000 #过期时间为1h
+    key: huangzhenmu
 eureka:
   client:
     service-url:

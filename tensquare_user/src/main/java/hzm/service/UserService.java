@@ -111,4 +111,22 @@ public class UserService {
             return null;
         }
     }
+
+    /**    
+     *  更新粉丝数    
+     * @param x    
+     */
+    @Transactional
+    public void incFanscount(String userid,int x){
+        userDao.incFanscount(userid,x);
+    }
+
+    /**    
+      *  更新关注数    
+      * @param x    
+      */
+    @Transactional
+    public void incFollowcount(String userid,int x){
+        userDao.incFollowcount(userid,x);
+    }
 }

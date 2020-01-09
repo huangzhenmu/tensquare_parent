@@ -1,8 +1,12 @@
 package hzm.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity()
+@Table(name = "tb_admin")
 @Data
 public class Admin {
     @Id

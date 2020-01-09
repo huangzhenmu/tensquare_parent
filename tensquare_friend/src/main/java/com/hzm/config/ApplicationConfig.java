@@ -1,6 +1,6 @@
-package hzm.config;
+package com.hzm.config;
 
-import hzm.filter.JwtFilter;
+import com.hzm.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
