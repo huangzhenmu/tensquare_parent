@@ -5,12 +5,14 @@ import com.hzm.entity.StatusCode;
 import com.hzm.util.JwtUtil;
 import hzm.entity.Admin;
 import hzm.service.AdminService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Api(value = "AdminController",description = "管理员")
 @RestController
 @CrossOrigin
 @RequestMapping("/admin")

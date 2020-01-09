@@ -1,11 +1,14 @@
 package hzm.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity()
+@Table(name = "tb_user")
 @Data
 public class User implements Serializable {
     @Id

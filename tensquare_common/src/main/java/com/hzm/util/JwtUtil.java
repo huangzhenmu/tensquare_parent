@@ -5,10 +5,12 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@ConfigurationProperties("jwt.config")
+@Component
+@ConfigurationProperties("jwt.config") //将配置映射到类
 public class JwtUtil {
     private String key;
     private Long ttl;
