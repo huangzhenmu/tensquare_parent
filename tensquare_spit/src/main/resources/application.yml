@@ -1,0 +1,17 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: tensquare-spit
+  data:
+    mongodb:
+      host: 192.168.63.1 #mongodb服务器地址，可以指定端口，不填就是默认端口
+      database: spitdb #mongodb的数据库
+  redis:
+    host: 127.0.0.1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka
+  instance:
+    prefer‐ip‐address: true

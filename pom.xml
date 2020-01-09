@@ -15,6 +15,12 @@
         <module>tensquare_qa</module>
         <module>tensquare_article</module>
         <module>tensquare_gathering</module>
+        <module>tensquare_spit</module>
+        <module>tensquare_search</module>
+        <module>tensquare_user</module>
+        <module>tensquare_sms</module>
+        <module>tensquare_eureka</module>
+        <module>tensquare_friend</module>
     </modules>
 
     <name>tensquare_parent</name>
@@ -32,6 +38,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <java>1.8</java>
+        <maven>1.8</maven>
+        <maven>1.8</maven>
     </properties>
 
     <dependencies>
@@ -91,4 +100,17 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

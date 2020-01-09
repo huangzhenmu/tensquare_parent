@@ -1,0 +1,8 @@
+server:
+  port: 9010 #服务端口
+eureka:
+  client:
+    register-with-eureka: false  #是否注册自己
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/ #Eureka客户端与Eureka服务端进行交互的地址
+    fetch-registry: false  #是否从其他注册中心导入数据

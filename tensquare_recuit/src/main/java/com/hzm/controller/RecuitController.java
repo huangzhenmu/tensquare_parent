@@ -38,16 +38,26 @@ public class RecuitController {
     public Result update(@PathVariable("recuitId") String recuitId,@RequestBody RecuitEntity recuit){
         recuit.setId(recuitId);
         recuitService.update(recuit);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"编辑成功");
     }
 
     @DeleteMapping("/delete/{recuitId}")
     public Result deleteById(@PathVariable("recuitId") String recuitId){
         recuitService.deleteById(recuitId);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"删除成功");
     }
 
-    /*@PostMapping(value = "/search")
+    @GetMapping("/search/recommend")
+    public Result recommend(){
+        return new Result(true,StatusCode.OK,"查询成功",recuitService.recommend());
+    }
+
+    @GetMapping("/search/newlist")
+    public Result newlist(){
+        return new Result(true,StatusCode.OK,"添加成功",recuitService.newList());
+    }
+
+    @PostMapping(value = "/search")
     public Result findSearch(@RequestBody RecuitEntity recuit){
         List<RecuitEntity> list = recuitService.findSearch(recuit);
         return new Result(true,StatusCode.OK,"查询成功",list);
@@ -57,5 +67,5 @@ public class RecuitController {
     public Result findQuery(@RequestBody RecuitEntity recuit,@PathVariable("page") Integer page,@PathVariable("size") Integer size){
         Page<RecuitEntity> recuitPage = recuitService.findQuery(recuit,page,size);
         return new Result(true,StatusCode.OK,"查询成功",new PageResult<RecuitEntity>(recuitPage.getTotalElements(),recuitPage.getContent()));
-    }*/
+    }
 }
