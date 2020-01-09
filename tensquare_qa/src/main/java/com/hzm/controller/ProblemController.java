@@ -1,5 +1,6 @@
 package com.hzm.controller;
 
+import com.hzm.client.LabelClient;
 import com.hzm.entity.PageResult;
 import com.hzm.entity.ProblemEntity;
 import com.hzm.entity.Result;
@@ -8,13 +9,14 @@ import com.hzm.service.ProblemService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(value = "ProblemController",produces = "问题接口")
+@Api(value = "ProblemController",produces = "问答接口")
 @RestController
 @CrossOrigin//跨域
 @RequestMapping("/problem")
@@ -25,6 +27,9 @@ public class ProblemController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private LabelClient labelClient;
 
     @ApiOperation("分页查询新问题列表")
     @GetMapping("/newlist/{labelid}/{page}/{size}")
@@ -78,6 +83,13 @@ public class ProblemController {
     public Result deleteById(@PathVariable("problemid") String problemid){
         problemService.deleteById(problemid);
         return new Result(true,StatusCode.OK,"删除成功");
+    }
+
+    @ApiOperation("查询label")
+    @RequestMapping(value = "/label/{labelid}",method = RequestMethod.GET)
+    public Result findLabelById(@PathVariable@ApiParam("标签id") String labelid){
+        Result result = labelClient.findById(labelid);
+        return result;
     }
 
 }

@@ -31,6 +31,7 @@ public class LabelController {
     @ApiOperation("根据id查询标签")
     @GetMapping("/{labelId}")
     public Result findById(@PathVariable("labelId") String labelId){
+        System.out.println("No.1");
         return new Result(true,StatusCode.OK,"查询成功",labelService.findById(labelId));
     }
 
