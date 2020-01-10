@@ -1,5 +1,5 @@
 server:
-  port : 9011
+  port : 9001
 spring:
   application:
     name: tensquare-base #必须横杠来连接
